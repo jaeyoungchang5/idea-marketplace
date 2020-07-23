@@ -22,17 +22,16 @@ const clientId = '667f949a-83b7-45ba-86da-5b9dc7c7722e';
 var sdk = sharetribeSdk.createInstance({clientId});
 
 const ProductPage = () => {
-  var testArray = sdk.ownListings.query({}).then(res => {
-      let temp = [];
+  let temp = [];
+  sdk.ownListings.query({}).then(res => {
       console.log("Fetched " + res.data.data.length + " listings.");
       res.data.data.forEach(listing => {
         temp.push(listing.attributes.title);
       })
       console.log(temp);
-      return temp;
   });
-
-  console.log("final: " + testArray);
+  
+  console.log("final: " + temp);
 
   return (
     <StaticPage

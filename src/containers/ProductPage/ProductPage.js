@@ -16,8 +16,23 @@ import Product from './Product';
 import css from './ProductPage.css';
 // import image from './path/to/image.png';
 
+/* Sharetribe SDK : connecting to database */
+const sharetribeSdk = require('sharetribe-flex-sdk');
+const clientId = '667f949a-83b7-45ba-86da-5b9dc7c7722e';
+var sdk = sharetribeSdk.createInstance({clientId});
+
 const ProductPage = () => {
-    
+  var testArray = sdk.ownListings.query({}).then(res => {
+      let temp = [];
+      console.log("Fetched " + res.data.data.length + " listings.");
+      res.data.data.forEach(listing => {
+        temp.push(listing.attributes.title);
+      })
+      console.log(temp);
+      return temp;
+  });
+
+  console.log("final: " + testArray);
 
   return (
     <StaticPage
@@ -39,9 +54,10 @@ const ProductPage = () => {
               <h1>Our Products</h1>
             </div>
             <div className={css.productWrapper}>
-              {products.map(item => {
+              {products.map((item, index) => {
                   return (
                       <Product 
+                          key={index}
                           productID={item.id}
                           productBanner={item.productBanner}
                           productName={item.productName}
@@ -50,6 +66,15 @@ const ProductPage = () => {
                       />
                   );
               })}
+              {/* {sdk.ownListings.query({}).then(res => {
+                  res.data.data.forEach(listing => {
+                    return (
+                      <Product
+                        productName={listing.attributes.title}
+                      />
+                    );
+                  })
+                })} */}
             </div>
         </LayoutWrapperMain>
         <LayoutWrapperFooter>

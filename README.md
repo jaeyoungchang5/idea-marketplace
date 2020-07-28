@@ -1,16 +1,4 @@
-# Sharetribe Flex Template for Web
-
-[![CircleCI](https://circleci.com/gh/sharetribe/ftw-daily.svg?style=svg)](https://circleci.com/gh/sharetribe/ftw-daily)
-
-This is a template web application for a Sharetribe Flex marketplace ready to be extended and
-customized. It is based on an application bootstrapped with
-[create-react-app](https://github.com/facebookincubator/create-react-app) with some additions,
-namely server side rendering and a custom CSS setup.
-
-> Note: We also have [FTW-hourly](https://github.com/sharetribe/ftw-hourly) for time-based
-> processes. If you are taking time-based booking process into use, you should consider using it
-> instead. You can read more from the related
-> [Flex Docs article](https://www.sharetribe.com/docs/background/time-based-template)
+# Idea Marketplace
 
 ## Quick start
 

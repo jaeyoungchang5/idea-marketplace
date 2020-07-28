@@ -21,14 +21,30 @@ var sdk = sharetribeSdk.createInstance({clientId});
 class ProductDetailPage extends React.Component {
   constructor(props){
     super(props);
-    this.state = { listing: null, id: this.props.params.id };
+    this.state = { listing: null, images: null, id: this.props.params.id };
   }
 
   componentDidMount() {
-      sdk.ownListings.show({id: this.state.id}).then(res => {
+    /* get individual listing data based on uuid */
+      sdk.ownListings.show({id: this.state.id, include: ['images']},).then(res => {
+        console.log("response:");
+        console.log(res);
         let temp = res.data.data;
         console.log(temp);
         this.setState({listing: temp});
+
+        /* get image data */
+        let imagesTemp = [];
+        console.log("Fetched " + res.data.included.length + " images.");
+        res.data.included.forEach(imageElement => {
+          imagesTemp.push({
+            id: imageElement.id.uuid,
+            url: imageElement.attributes.variants.default.url,
+          })
+        })
+        console.log("images:");
+        console.log(imagesTemp);
+        this.setState({images: imagesTemp})
       });
   }
 
@@ -51,7 +67,7 @@ class ProductDetailPage extends React.Component {
           <LayoutWrapperMain>
             <div className={css.productContainer}>
               <div className={css.productImageBanner}>
-                  {/* <img className={css.banner} src={this.state.listing && this.state.listing.relationships.images.data[1]} alt={this.state.listing && this.state.listing.attributes.title}></img> */}
+                  <img className={css.banner} src={this.state.images && this.state.images[1].url} alt={this.state.listing && this.state.listing.attributes.title}></img>
               </div>
               <div className={css.productContent}>
                   <div className={css.words}>
@@ -59,11 +75,11 @@ class ProductDetailPage extends React.Component {
                           <h3>{this.state.listing && this.state.listing.attributes.title}</h3>
                       </div>
                       <div className={css.productDescript}>
-                          {this.state.listing && this.state.listing.attributes.description}
+                          <p>{this.state.listing && this.state.listing.attributes.description}</p>
                       </div>
                   </div>
                   <div className={css.feature}>
-                      {/* <img className={css.productImage} src={this.state.listing && this.state.listing.relationships.images.data[1]} alt={this.state.listing && this.state.listing.attributes.title}}></img> */}
+                      <img className={css.productImage} src={this.state.images && this.state.images[0].url} alt={this.state.listing && this.state.listing.attributes.title}></img>
                   </div>
               </div>
           </div>

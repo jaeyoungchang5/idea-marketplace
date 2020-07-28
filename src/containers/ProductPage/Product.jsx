@@ -8,7 +8,7 @@ function Product(props){
     return (
         <div className={css.productContainer}>
             <div className={css.productImageBanner}>
-                {/* <img className={css.banner} src={bannerSrc} alt={props.productName}></img> */}
+                <img className={css.banner} src={props.productBanner} alt={props.productName + " Banner"}></img>
             </div>
             <div className={css.productContent}>
                 <div className={css.words}>
@@ -22,7 +22,7 @@ function Product(props){
                     </div>
                 </div>
                 <div className={css.feature}>
-                    {/* <img className={css.productImage} src={imgSrc} alt={props.productName}></img> */}
+                    <img className={css.productImage} src={props.productImg} alt={props.productName + " Image"}></img>
                 </div>
             </div>
         </div>

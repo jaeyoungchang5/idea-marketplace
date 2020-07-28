@@ -22,20 +22,36 @@ var sdk = sharetribeSdk.createInstance({clientId});
 class ProductPage extends React.Component {
   constructor(props){
     super(props);
-    this.state = { finalArray: []};
+    this.state = { listings: null, images: null};
   }
 
   componentDidMount() {
-    sdk.ownListings.query({
-        include: ['images'],
-      }).then(res => {
-      let temp = [];
+    sdk.ownListings.query({include: ['images'],}).then(res => {
+      console.log("response:")
+      console.log(res);
+
+      /* get listing data */
+      let listingsTemp = [];
       console.log("Fetched " + res.data.data.length + " listings.");
       res.data.data.forEach(listing => {
-        temp.push(listing);
+        listingsTemp.push(listing);
       })
-      console.log(temp);
-      this.setState({finalArray: temp});
+      console.log("listings:")
+      console.log(listingsTemp);
+      this.setState({listings: listingsTemp});
+
+      /* get image data */
+      let imagesTemp = [];
+      console.log("Fetched " + res.data.included.length + " images.");
+      res.data.included.forEach(imageElement => {
+        imagesTemp.push({
+          id: imageElement.id.uuid,
+          url: imageElement.attributes.variants.default.url,
+        })
+      })
+      console.log("images:");
+      console.log(imagesTemp);
+      this.setState({images: imagesTemp});
     });
   }
 
@@ -60,15 +76,15 @@ class ProductPage extends React.Component {
                 <h1>Our Products</h1>
               </div>
               <div className={css.productWrapper}>
-                {this.state.finalArray.map((item,index) => {
+                {this.state.listings && this.state.listings.map((item,index) => {
                   return (
                     <Product 
                             key={index}
                             productID={item.id.uuid}
-                            productBanner={item.relationships.images.data[1]}
+                            productBanner={this.state.images && this.state.images[index*2+1].url}
                             productName={item.attributes.title}
                             productDescription={item.attributes.description}
-                            productImg={item.relationships.images.data[0]}
+                            productImg={this.state.images && this.state.images[index*2].url}
                     />
                   )
                 })}

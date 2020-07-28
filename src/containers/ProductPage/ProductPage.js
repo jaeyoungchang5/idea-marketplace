@@ -11,7 +11,6 @@ import {
     // ExternalLink,
 } from '../../components';
 
-// import products from './products';
 import Product from './Product';
 import css from './ProductPage.css';
 
@@ -33,7 +32,7 @@ class ProductPage extends React.Component {
       let temp = [];
       console.log("Fetched " + res.data.data.length + " listings.");
       res.data.data.forEach(listing => {
-        temp.push(listing.attributes);
+        temp.push(listing);
       })
       console.log(temp);
       this.setState({finalArray: temp});
@@ -65,11 +64,11 @@ class ProductPage extends React.Component {
                   return (
                     <Product 
                             key={index}
-                            productID={index}
-                            // productBanner={item.image}
-                            productName={item.title}
-                            productDescription={item.description}
-                            //productImg={item.banner}
+                            productID={item.id.uuid}
+                            productBanner={item.relationships.images.data[1].id}
+                            productName={item.attributes.title}
+                            productDescription={item.attributes.description}
+                            productImg={item.relationships.images.data[0]}
                     />
                   )
                 })}

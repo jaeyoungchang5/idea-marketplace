@@ -69,6 +69,10 @@ const routeConfiguration = () => {
       path: '/product',
       name: 'ProductPage',
       component: ProductPage,
+      // auth: false,
+      // authPage: 'LoginPage',
+      // component: props => <ProductPage {...props} />,
+      // loadData: ProductPage.loadData,
     },
     {
       path: '/product-detail/:id',

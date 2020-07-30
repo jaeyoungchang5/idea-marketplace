@@ -27,10 +27,10 @@ class ProductDetailPage extends React.Component {
   componentDidMount() {
     /* get individual listing data based on uuid */
       sdk.ownListings.show({id: this.state.id, include: ['images']},).then(res => {
-        console.log("response:");
-        console.log(res);
         let temp = res.data.data;
         console.log(temp);
+        console.log('Price');
+        console.log(temp.attributes.price.amount)
         this.setState({listing: temp});
 
         /* get image data */
@@ -76,6 +76,7 @@ class ProductDetailPage extends React.Component {
                       </div>
                       <div className={css.productDescript}>
                           <p>{this.state.listing && this.state.listing.attributes.description}</p>
+                          <h3>{this.state.listing.attributes.price.amount}</h3>
                       </div>
                   </div>
                   <div className={css.feature}>

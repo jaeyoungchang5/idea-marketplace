@@ -6,6 +6,7 @@
     background-color: #fcfcfc;
 }
 
+
 .PageTitle {
     display: flex;
     justify-content: center;
@@ -28,6 +29,11 @@
     flex-wrap: wrap;
     justify-content: center;
     overflow: hidden;
+    transition: .2s;
+}
+
+.productContainer:hover {
+    transform: scale(1.03);
 }
 
 .productImageBanner {

@@ -35,6 +35,7 @@ class ProductPage extends React.Component {
       console.log("Fetched " + res.data.data.length + " listings.");
       res.data.data.forEach(listing => {
         listingsTemp.push(listing);
+        console.log(listing)
       })
       console.log("listings:")
       console.log(listingsTemp);

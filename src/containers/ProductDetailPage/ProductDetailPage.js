@@ -1,6 +1,8 @@
 import React from 'react';
 import { StaticPage, TopbarContainer } from '..';
 // import { Link, Route } from 'react-router-dom';
+// for evergreen UI components
+import { SideSheet, Pane, Heading, Paragraph, Card, Button, Combobox } from 'evergreen-ui'
 
 import {
     LayoutSingleColumn,
@@ -46,6 +48,9 @@ class ProductDetailPage extends React.Component {
         console.log(imagesTemp);
         this.setState({images: imagesTemp})
       });
+
+      // set initial state for side box
+      this.setState({isShown: false});
   }
 
   render(){
@@ -66,24 +71,67 @@ class ProductDetailPage extends React.Component {
           </LayoutWrapperTopbar>
           <LayoutWrapperMain>
             <div className={css.productContainer}>
-              <div className={css.productImageBanner}>
-                  <img className={css.banner} src={this.state.images && this.state.images[1].url} alt={this.state.listing && this.state.listing.attributes.title}></img>
+              <Pane
+                elevation={2}
+                float="left"
+                width={700}
+                height={500}
+                margin={50}
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                flexDirection="column"
+              >
+                <img className={css.productImage} src={this.state.images && this.state.images[0].url} alt={this.state.listing && this.state.listing.attributes.title}></img>
+              </Pane>
+              <div className={css.productDetails}>
+                <h1>{this.state.listing && this.state.listing.attributes.title}</h1>
+                <h2>${this.state.listing && this.state.listing.attributes.price.amount}</h2>
+                <div className={css.productDescription}>
+                    <p>{this.state.listing && this.state.listing.attributes.description}</p>
+                </div>
+                <div className={css.dropdown}>
+                  <Combobox
+                    openOnFocus
+                    items={['Small', 'Medium', 'Large', 'X-Large']}
+                    onChange={selected => console.log(selected)}
+                    placeholder="Size"
+                    padding-bottom="1rem"
+                  />
+                </div>
+                <Button height={40} marginRight={16} appearance="primary" intent="success" onClick={() => this.setState({ isShown: true })}>Purchase</Button>
               </div>
-              <div className={css.productContent}>
-                  <div className={css.words}>
-                      <div className={css.productHeader}>
-                          <h3>{this.state.listing && this.state.listing.attributes.title}</h3>
-                      </div>
-                      <div className={css.productDescript}>
-                          <p>{this.state.listing && this.state.listing.attributes.description}</p>
-                          <h3>{this.state.listing.attributes.price.amount}</h3>
-                      </div>
-                  </div>
-                  <div className={css.feature}>
-                      <img className={css.productImage} src={this.state.images && this.state.images[0].url} alt={this.state.listing && this.state.listing.attributes.title}></img>
-                  </div>
-              </div>
-          </div>
+            </div>
+            <React.Fragment>
+              <SideSheet
+                isShown={this.state.isShown}
+                onCloseComplete={() => this.setState({ isShown: false })}
+                containerProps={{
+                  display: 'flex',
+                  flex: '1',
+                  flexDirection: 'column',
+                }}
+              >
+                <Pane zIndex={1} flexShrink={0} elevation={0} backgroundColor="white">
+                  <Pane padding={16}>
+                    <Heading size={1000}>{this.state.listing && this.state.listing.attributes.title}</Heading>
+                    <Paragraph size={500}>${this.state.listing && this.state.listing.attributes.price.amount}</Paragraph>
+                  </Pane>
+                </Pane>
+                <Pane flex="1" overflowY="scroll" background="tint1" padding={16}>
+                  <Card
+                    backgroundColor="white"
+                    elevation={0}
+                    height={240}
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
+                  >
+                    <Heading>Display Purchase Process Here</Heading>
+                  </Card>
+                </Pane>
+              </SideSheet>
+            </React.Fragment>
           </LayoutWrapperMain>
           <LayoutWrapperFooter>
             <Footer />

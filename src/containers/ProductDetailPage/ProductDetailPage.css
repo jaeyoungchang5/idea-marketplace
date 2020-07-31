@@ -5,3 +5,30 @@
 
     background-color: #fcfcfc;
 }
+
+.productContainer{
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+.productImage {
+    height: 100%;
+}
+
+.imageContainer {
+    height: 90vh;
+}
+
+.productDetails {
+    width: auto;
+    padding-top: 100px;
+}
+
+.productDescription {
+    padding-top: 1rem;
+}
+
+.dropdown {
+    padding-bottom: 1rem;
+}

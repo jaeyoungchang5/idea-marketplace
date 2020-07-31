@@ -30,29 +30,30 @@ class ProductPage extends React.Component {
       console.log("response:")
       console.log(res);
 
+      // get image data
+      var images_dict = {};
+      res.data.included.forEach(imageElement => {
+          images_dict[imageElement.id.uuid] = imageElement.attributes.variants.default.url;
+        });
+
       /* get listing data */
       let listingsTemp = [];
       console.log("Fetched " + res.data.data.length + " listings.");
       res.data.data.forEach(listing => {
-        listingsTemp.push(listing);
-        console.log(listing)
+        // collect images array
+        let images = listing.relationships.images.data;
+        let listing_images = [];
+        images.forEach(image => {
+          if (images_dict[image.id.uuid]) {
+              listing_images.push(images_dict[image.id.uuid]);
+          }
+        });
+
+        listingsTemp.push({listing, listing_images});
       })
       console.log("listings:")
       console.log(listingsTemp);
-      this.setState({listings: listingsTemp});
-
-      /* get image data */
-      let imagesTemp = [];
-      console.log("Fetched " + res.data.included.length + " images.");
-      res.data.included.forEach(imageElement => {
-        imagesTemp.push({
-          id: imageElement.id.uuid,
-          url: imageElement.attributes.variants.default.url,
-        })
-      })
-      console.log("images:");
-      console.log(imagesTemp);
-      this.setState({images: imagesTemp});
+      this.setState({product: listingsTemp});
     });
   }
 
@@ -77,15 +78,15 @@ class ProductPage extends React.Component {
                 <h1>Our Products</h1>
               </div>
               <div className={css.productWrapper}>
-                {this.state.listings && this.state.listings.map((item,index) => {
+                {this.state.product && this.state.product.map((item,index) => {
                   return (
                     <Product 
                             key={index}
-                            productID={item.id.uuid}
-                            productBanner={this.state.images && this.state.images[index*2+1].url}
-                            productName={item.attributes.title}
-                            productDescription={item.attributes.description}
-                            productImg={this.state.images && this.state.images[index*2].url}
+                            productID={item.listing.id.uuid}
+                            productBanner={item.listing_images && item.listing_images[1]}
+                            productName={item.listing.attributes.title}
+                            productDescription={item.listing.attributes.description}
+                            productImg={item.listing_images && item.listing_images[0]}
                     />
                   )
                 })}

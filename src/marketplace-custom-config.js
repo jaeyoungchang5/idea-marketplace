@@ -85,9 +85,11 @@ export const filters = [
       // Note: label is not added through the translation files
       // to make filter customizations a bit easier.
       options: [
-        { key: 'smoke', label: 'Smoke' },
-        { key: 'electric', label: 'Electric' },
-        { key: 'wood', label: 'Wood' },
+        { key: 'electronic', label: 'Electronic' },
+        { key: 'entertainment', label: 'Entertainment' },
+        { key: 'office', label: 'Office' },
+        { key: 'kitchen', label: 'Kitchen'},
+        { key: 'toy', label: 'Toy'},
         { key: 'other', label: 'Other' },
       ],
     },
@@ -109,36 +111,24 @@ export const filters = [
       // to make filter customizations a bit easier.
       options: [
         {
-          key: 'towels',
-          label: 'Towels',
+          key: '1_year_warranty',
+          label: '1 year warranty',
         },
         {
-          key: 'bathroom',
-          label: 'Bathroom',
+          key: '2_year_warranty',
+          label: '2 year warranty',
         },
         {
-          key: 'swimming_pool',
-          label: 'Swimming pool',
+          key: '3_year_warranty',
+          label: '3 year warranty',
         },
         {
-          key: 'own_drinks',
-          label: 'Own drinks allowed',
+          key: '4_year_warranty',
+          label: '4 year warranty',
         },
         {
-          key: 'jacuzzi',
-          label: 'Jacuzzi',
-        },
-        {
-          key: 'audiovisual_entertainment',
-          label: 'Audiovisual entertainment',
-        },
-        {
-          key: 'barbeque',
-          label: 'Barbeque',
-        },
-        {
-          key: 'own_food_allowed',
-          label: 'Own food allowed',
+          key: 'free_return',
+          label: 'Free return',
         },
       ],
     },

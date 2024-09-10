@@ -35,7 +35,7 @@
     "moment": "^2.22.2",
     "object.entries": "^1.1.1",
     "object.values": "^1.1.1",
-    "path-to-regexp": "^3.0.0",
+    "path-to-regexp": "^8.0.0",
     "prop-types": "^15.7.2",
     "query-string": "^5.1.1",
     "raf": "^3.4.0",
